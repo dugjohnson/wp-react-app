@@ -1,12 +1,11 @@
 'use strict';
 
-var path = require( 'path' );
+var path = require( 'path' );   // only needed if you require other pathing
 var webpack = require( 'webpack' );
 
 module.exports = {
 	entry: './wp-react-app.js',
 	output: {
-		path: '..',
 		filename: 'wpra.js'
 	},
 	module: {
