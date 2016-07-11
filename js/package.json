@@ -1,7 +1,7 @@
 {
-  "name": "mailer-detail",
+  "name": "wp-react-app",
   "version": "1.0.0",
-  "description": "Screen for handling mailer details",
+  "description": "",
   "dependencies": {
     "react": "^15.0.1",
     "react-dom": "^15.0.1"
@@ -22,5 +22,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Doug Johnson"
+  "author": ""
 }

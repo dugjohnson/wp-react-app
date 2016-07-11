@@ -1,0 +1,1 @@
+/* This API file is to talk to the wordpress AJAX API */

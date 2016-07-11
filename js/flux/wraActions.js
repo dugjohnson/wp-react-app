@@ -1,0 +1,1 @@
+/* This action creator is to handle all actions */

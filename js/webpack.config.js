@@ -4,10 +4,10 @@ var path = require( 'path' );
 var webpack = require( 'webpack' );
 
 module.exports = {
-	entry: './marketplace-mailer-detail.js',
+	entry: './wp-react-app.js',
 	output: {
 		path: '..',
-		filename: 'mp-mailer-detail.js'
+		filename: 'wpra.js'
 	},
 	module: {
 		loaders: [ {
