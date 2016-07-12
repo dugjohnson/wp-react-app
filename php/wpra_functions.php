@@ -1,4 +1,5 @@
 <?php
+require_once WPRA_DIR . 'vendor/autoload.php';
 
 class wpra_functions {
 
@@ -10,6 +11,9 @@ class wpra_functions {
 		add_action( 'wp_enqueue_scripts', array( $this, 'addScriptsCSS' ) );
 
 		add_shortcode( 'wpra_app', array( $this, 'showReactApp' ) );
+		
+		$myReactAjax = new wpra_ajax();
+		add_action( 'wp_ajax_getMyReactData',array($myReactAjax,'getMyReactData'));
 	}
 
 	public function addScriptsCSS() {
