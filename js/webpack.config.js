@@ -4,9 +4,9 @@ var path = require( 'path' );   // only needed if you require other pathing
 var webpack = require( 'webpack' );
 
 module.exports = {
-	entry: './wp-react-app.js',
+	entry: './my-links-app.js',
 	output: {
-		filename: 'wpra.js'
+		filename: 'mylinks.js'
 	},
 	module: {
 		loaders: [ {

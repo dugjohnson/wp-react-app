@@ -2,5 +2,5 @@
 import keyMirror from 'keymirror';
 
 module.exports = keyMirror( {
-	DATA_LOADED: null
+	LINKS_LOADED: null
 } );

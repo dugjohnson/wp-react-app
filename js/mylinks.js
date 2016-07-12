@@ -55,7 +55,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	jQuery(document).ready(function () {
-	        (0, _reactDom.render)(React.createElement(_wpReactContainer2.default, null), document.querySelector('#myreactapp'));
+	        (0, _reactDom.render)(React.createElement(_wpReactContainer2.default, null), document.querySelector('#mylinksapp'));
 	});
 
 /***/ },
@@ -82,11 +82,11 @@
 
 	var _wraActions2 = _interopRequireDefault(_wraActions);
 
-	var _wpReactHello = __webpack_require__(22);
+	var _mLMain = __webpack_require__(22);
 
-	var _wpReactHello2 = _interopRequireDefault(_wpReactHello);
+	var _mLMain2 = _interopRequireDefault(_mLMain);
 
-	var _reactRedux = __webpack_require__(23);
+	var _reactRedux = __webpack_require__(25);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -94,7 +94,7 @@
 	    displayName: 'WPReactContainer',
 
 	    doInitialSetup: function doInitialSetup() {
-	        _wraActions2.default.getText();
+	        _wraActions2.default.getLinks();
 	    },
 	    componentWillMount: function componentWillMount() {
 	        this.doInitialSetup();
@@ -103,7 +103,7 @@
 	        return React.createElement(
 	            _reactRedux.Provider,
 	            { store: _wraStore2.default },
-	            React.createElement(_wpReactHello2.default, null)
+	            React.createElement(_mLMain2.default, null)
 	        );
 	    }
 	});
@@ -129,7 +129,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var wraStore = {
-		"showText": ""
+		myLinks: []
 	};
 
 	function wraReducers() {
@@ -137,7 +137,7 @@
 		var action = arguments[1];
 
 		switch (action.type) {
-			case _wraConstants2.default.DATA_LOADED:
+			case _wraConstants2.default.LINKS_LOADED:
 				{
 					var newState = Object.assign({}, state, action.payload);
 					return newState;
@@ -1128,7 +1128,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	module.exports = (0, _keymirror2.default)({
-		DATA_LOADED: null
+		LINKS_LOADED: null
 	}); /* All constants are defined here */
 
 /***/ },
@@ -1215,13 +1215,13 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var WraActions = {
-		getText: function getText() {
-			_wraAPI2.default.getMyReactData().done(function (data) {
+		getLinks: function getLinks() {
+			_wraAPI2.default.getMyLinks().done(function (data) {
 				var response = JSON.parse(data);
 				if (response) {
 					_wraStore2.default.dispatch({
-						type: _wraConstants2.default.DATA_LOADED,
-						payload: { "showText": response }
+						type: _wraConstants2.default.LINKS_LOADED,
+						payload: { "myLinks": response }
 					});
 				}
 			});
@@ -1244,12 +1244,12 @@
 	/* This API file is to talk to the wordpress AJAX API */
 
 	var WraAPI = {
-		getMyReactData: function getMyReactData() {
+		getMyLinks: function getMyLinks() {
 			return jQuery.ajax({
 				url: '/wp-admin/admin-ajax.php',
 				method: 'GET',
 				data: {
-					action: 'getMyReactData'
+					action: 'getMyLinks'
 				}
 			});
 		}
@@ -1267,39 +1267,103 @@
 		value: true
 	});
 
-	var _reactRedux = __webpack_require__(23);
+	var _mLGetLink = __webpack_require__(23);
 
-	var WPReactHello = React.createClass({
-		displayName: 'WPReactHello',
+	var _mLGetLink2 = _interopRequireDefault(_mLGetLink);
+
+	var _mLLinksList = __webpack_require__(24);
+
+	var _mLLinksList2 = _interopRequireDefault(_mLLinksList);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var MLMain = React.createClass({
+		displayName: 'MLMain',
 
 		render: function render() {
 			return React.createElement(
 				'div',
 				null,
-				React.createElement(
-					'div',
+				React.createElement(_mLGetLink2.default, null),
+				React.createElement(_mLLinksList2.default, null)
+			);
+		}
+	});
+
+	exports.default = MLMain;
+
+/***/ },
+/* 23 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	var MLGetLink = React.createClass({
+		displayName: "MLGetLink",
+
+		render: function render() {
+			return React.createElement(
+				"div",
+				{ className: "newLink" },
+				React.createElement("input", { type: "text", placeholder: "Description" }),
+				React.createElement("input", { type: "url", placeholder: "Link to site" })
+			);
+		}
+	});
+
+	exports.default = MLGetLink;
+
+/***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _reactRedux = __webpack_require__(25);
+
+	var MLLinksList = React.createClass({
+		displayName: "MLLinksList",
+
+		getLinks: function getLinks() {
+			return this.props.myLinks.map(function (myLink, index) {
+				return React.createElement(
+					"span",
 					null,
-					'Hello World!'
-				),
-				React.createElement(
-					'div',
-					null,
-					this.props.message
-				)
+					React.createElement(
+						"a",
+						{ key: index, className: "blockLink", target: "_blank", href: myLink.link },
+						myLink.description
+					),
+					React.createElement("br", null)
+				);
+			});
+		},
+		render: function render() {
+			return React.createElement(
+				"div",
+				null,
+				this.getLinks()
 			);
 		}
 	});
 
 	var mapStateToProps = function mapStateToProps(state) {
 		return {
-			message: state.showText
+			myLinks: state.myLinks
 		};
 	};
 
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(WPReactHello);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(MLLinksList);
 
 /***/ },
-/* 23 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1307,11 +1371,11 @@
 	exports.__esModule = true;
 	exports.connect = exports.Provider = undefined;
 
-	var _Provider = __webpack_require__(24);
+	var _Provider = __webpack_require__(26);
 
 	var _Provider2 = _interopRequireDefault(_Provider);
 
-	var _connect = __webpack_require__(28);
+	var _connect = __webpack_require__(30);
 
 	var _connect2 = _interopRequireDefault(_connect);
 
@@ -1321,7 +1385,7 @@
 	exports.connect = _connect2["default"];
 
 /***/ },
-/* 24 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -1329,13 +1393,13 @@
 	exports.__esModule = true;
 	exports["default"] = undefined;
 
-	var _react = __webpack_require__(25);
+	var _react = __webpack_require__(27);
 
-	var _storeShape = __webpack_require__(26);
+	var _storeShape = __webpack_require__(28);
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
-	var _warning = __webpack_require__(27);
+	var _warning = __webpack_require__(29);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -1405,20 +1469,20 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ },
-/* 25 */
+/* 27 */
 /***/ function(module, exports) {
 
 	module.exports = React;
 
 /***/ },
-/* 26 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
 
-	var _react = __webpack_require__(25);
+	var _react = __webpack_require__(27);
 
 	exports["default"] = _react.PropTypes.shape({
 	  subscribe: _react.PropTypes.func.isRequired,
@@ -1427,7 +1491,7 @@
 	});
 
 /***/ },
-/* 27 */
+/* 29 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1456,7 +1520,7 @@
 	}
 
 /***/ },
-/* 28 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -1466,21 +1530,21 @@
 	exports.__esModule = true;
 	exports["default"] = connect;
 
-	var _react = __webpack_require__(25);
+	var _react = __webpack_require__(27);
 
-	var _storeShape = __webpack_require__(26);
+	var _storeShape = __webpack_require__(28);
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
-	var _shallowEqual = __webpack_require__(29);
+	var _shallowEqual = __webpack_require__(31);
 
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
-	var _wrapActionCreators = __webpack_require__(30);
+	var _wrapActionCreators = __webpack_require__(32);
 
 	var _wrapActionCreators2 = _interopRequireDefault(_wrapActionCreators);
 
-	var _warning = __webpack_require__(27);
+	var _warning = __webpack_require__(29);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -1488,11 +1552,11 @@
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _hoistNonReactStatics = __webpack_require__(31);
+	var _hoistNonReactStatics = __webpack_require__(33);
 
 	var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 
-	var _invariant = __webpack_require__(32);
+	var _invariant = __webpack_require__(34);
 
 	var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -1855,7 +1919,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ },
-/* 29 */
+/* 31 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1886,7 +1950,7 @@
 	}
 
 /***/ },
-/* 30 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1903,7 +1967,7 @@
 	}
 
 /***/ },
-/* 31 */
+/* 33 */
 /***/ function(module, exports) {
 
 	/**
@@ -1959,7 +2023,7 @@
 
 
 /***/ },
-/* 32 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**

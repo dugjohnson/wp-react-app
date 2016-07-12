@@ -1,11 +1,11 @@
 import WraStore from '../flux/wraStore';
 import WraActions from '../flux/wraActions';
-import WPReactHello from './wp-react-Hello';
+import MLMain from './mLMain';
 import {Provider} from 'react-redux';
 
 var WPReactContainer = React.createClass( {
     doInitialSetup: function () {
-        WraActions.getText();
+        WraActions.getLinks();
     },
     componentWillMount: function () {
         this.doInitialSetup();
@@ -13,7 +13,7 @@ var WPReactContainer = React.createClass( {
     render: function () {
         return (
             <Provider store={WraStore}>
-                <WPReactHello/>
+                <MLMain/>
             </Provider> );
     }
 } );

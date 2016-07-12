@@ -1,11 +1,11 @@
 <?php
 //You can also rename this file to better represent your plugin name
 /*
-Plugin Name: FILL_IN_THIS_NAME
+Plugin Name: My Links App
 Plugin URI:
-Description:  YOUR_DESCRIPTION
+Description:  This gives a set of clickable links by logged in user
 Version: 0.0.1
-Author: YOUR_NAME
+Author:  Doug Johnson
 Author URI:
 */
 
@@ -21,13 +21,13 @@ if ( !defined( 'WP_PLUGIN_URL' ) ) {
 if ( !defined( 'WP_PLUGIN_DIR' ) ) {
 	define( 'WP_PLUGIN_DIR', WP_CONTENT_DIR . '/plugins' );
 }
-if ( !defined( 'WPRA_DIR' ) ) {
-	define( 'WPRA_DIR', WP_PLUGIN_DIR . '/wp-react-app/' );
+if ( !defined( 'MYLINKS_DIR' ) ) {
+	define( 'MYLINKS_DIR', WP_PLUGIN_DIR . '/my-links/' );
 }
-if ( !defined( 'WPRA_URL' ) ) {
-	define( 'WPRA_URL', WP_PLUGIN_URL . '/wp-react-app/' );
+if ( !defined( 'MYLINKS_URL' ) ) {
+	define( 'MYLINKS_URL', WP_PLUGIN_URL . '/my-links/' );
 }
 
-require_once( WPRA_DIR . 'vendor/autoload.php' );
+require_once( MYLINKS_DIR . 'vendor/autoload.php' );
 
-$wpraFunc = new wpra_functions(); 
+$myLinksFunc = new mylinks_functions();

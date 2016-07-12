@@ -2,12 +2,12 @@ import {createStore} from 'redux';
 import WraConstants from './wraConstants';
 
 const wraStore = {
-	"showText":""
+	myLinks: []
 };
 
 function wraReducers( state = wraStore, action ) {
 	switch ( action.type ) {
-		case WraConstants.DATA_LOADED:
+		case WraConstants.LINKS_LOADED:
 		{
 			let newState = Object.assign( {}, state, action.payload );
 			return newState;

@@ -4,14 +4,14 @@ import WraAPI from './wraAPI';
 import WraStore from './wraStore';
 
 const WraActions = {
-	getText: function () {
-		WraAPI.getMyReactData()
+	getLinks: function () {
+		WraAPI.getMyLinks()
 			.done( data=> {
 				let response = JSON.parse( data );
 				if ( response ) {
 					WraStore.dispatch( {
-						type: WraConstants.DATA_LOADED,
-						payload: { "showText": response }
+						type: WraConstants.LINKS_LOADED,
+						payload: { "myLinks": response }
 					} );
 				}
 			} );
