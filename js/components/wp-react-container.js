@@ -1,1 +1,8 @@
-/* This is where the top level container should start and call other components */
+
+var WPReactContainer = React.createClass({
+    render: function(){
+        return <div>Hello World!</div>
+    }
+});
+
+export default WPReactContainer;
