@@ -1,4 +1,5 @@
 Starter project for a WordPress plugin to deliver a React mini-app
+
 1. Clone repository into plugins directory of WordPress
 2. From base directory of plugin, run composer install
 3. From js directory below that, run npm install
@@ -9,4 +10,4 @@ Starter project for a WordPress plugin to deliver a React mini-app
 8. In WordPress admin area, create page for your app
 9. Add shortcode as defined in your php function file
 10. Activate your plugin
-11. Navigate to your page
+11. Navigate to your page``
